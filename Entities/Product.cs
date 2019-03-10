@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomSite.Entities
@@ -11,5 +12,8 @@ namespace CustomSite.Entities
         [Required]
         public string ProductPrice { get; set; }
         public string ProductDescription { get; set; }
+
+        public Guid CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CustomSite.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitalMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace CustomSite.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     CategoryName = table.Column<string>(nullable: false),
                     CategoryDescription = table.Column<string>(nullable: true)
                 },
@@ -26,12 +26,12 @@ namespace CustomSite.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     ProductName = table.Column<string>(nullable: false),
                     Manufactory = table.Column<string>(nullable: false),
                     ProductPrice = table.Column<string>(nullable: false),
                     ProductDescription = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<Guid>(nullable: true)
+                    CategoryId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +41,7 @@ namespace CustomSite.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

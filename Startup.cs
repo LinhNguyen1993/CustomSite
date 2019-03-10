@@ -1,4 +1,5 @@
 using CustomSite.Core;
+using CustomSite.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,6 +24,8 @@ namespace CustomSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SiteContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddScoped<IEntityBaseRepository<Category>, EntityBaseRepository<Category>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

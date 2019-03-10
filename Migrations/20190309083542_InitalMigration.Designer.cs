@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomSite.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20190306181628_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190309083542_InitalMigration")]
+    partial class InitalMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,7 @@ namespace CustomSite.Migrations
                     b.Property<string>("CategoryName")
                         .IsRequired();
 
-                    b.Property<byte>("RowVersion")
+                    b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
@@ -45,7 +45,7 @@ namespace CustomSite.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CategoryId");
+                    b.Property<Guid>("CategoryId");
 
                     b.Property<string>("Manufactory")
                         .IsRequired();
@@ -58,7 +58,7 @@ namespace CustomSite.Migrations
                     b.Property<string>("ProductPrice")
                         .IsRequired();
 
-                    b.Property<byte>("RowVersion")
+                    b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
@@ -71,9 +71,10 @@ namespace CustomSite.Migrations
 
             modelBuilder.Entity("CustomSite.Entities.Product", b =>
                 {
-                    b.HasOne("CustomSite.Entities.Category")
+                    b.HasOne("CustomSite.Entities.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

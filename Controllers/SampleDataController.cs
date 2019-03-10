@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomSite.Core;
+using CustomSite.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomSite.Controllers
@@ -9,36 +11,35 @@ namespace CustomSite.Controllers
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
+        private readonly IEntityBaseRepository<Category> _repository;
+        public SampleDataController(IEntityBaseRepository<Category> repository)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            });
+            _repository = repository;         
+            add();   
         }
-
-        public class WeatherForecast
+        
+        public void add()
         {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
-
-            public int TemperatureF
+            var c = new Category();
+            c.CategoryName = "Car";
+            c.CategoryDescription = "this is car";
+            c.Products = new List<Product>()
             {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
-            }
+                new Product{
+                    ProductName = "BMW",
+                    ProductPrice = "100000",
+                    ProductDescription = "this is BMW",
+                    Manufactory = "EU"
+                },
+                new Product{
+                    ProductName = "Mercedes",
+                    ProductPrice = "100000",
+                    ProductDescription = "this is Mercedes",
+                    Manufactory = "EU"
+                },
+            };
+            _repository.Add(c);
+            _repository.SaveChage();
         }
     }
 }
