@@ -15,17 +15,17 @@ namespace CustomSite.Core
             _context = context;
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             _context.Add<T>(entity);
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _context.Remove<T>(entity);
         }
 
-        public void DeleteWhere(Expression<Func<T, bool>> predicate)
+        public virtual void DeleteWhere(Expression<Func<T, bool>> predicate)
         {
             IEnumerable<T> entities = _context.Set<T>().Where(predicate);
             foreach (var entity in entities)
@@ -34,32 +34,27 @@ namespace CustomSite.Core
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _context.Set<T>();
         }
 
-        public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             return _context.Set<T>().Where(predicate);
         }
 
-        public T GetSingle(Guid Id)
+        public virtual T GetSingle(Guid Id)
         {
             return _context.Set<T>().FirstOrDefault(x => x.Id == Id);
         }
 
-        public T GetSingle(Expression<Func<T, bool>> predicate)
+        public virtual T GetSingle(Expression<Func<T, bool>> predicate)
         {
             return _context.Set<T>().FirstOrDefault(predicate);
         }
 
-        public void SaveChage()
-        {
-            _context.SaveChanges();
-        }
-
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _context.Attach<T>(entity);
             _context.Entry<T>(entity).State = EntityState.Modified;

@@ -45,6 +45,8 @@ namespace CustomSite.Migrations
 
                     b.Property<Guid>("CategoryId");
 
+                    b.Property<string>("Image");
+
                     b.Property<string>("Manufactory")
                         .IsRequired();
 
@@ -53,8 +55,7 @@ namespace CustomSite.Migrations
                     b.Property<string>("ProductName")
                         .IsRequired();
 
-                    b.Property<string>("ProductPrice")
-                        .IsRequired();
+                    b.Property<decimal>("ProductPrice");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()

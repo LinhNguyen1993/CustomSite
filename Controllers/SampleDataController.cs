@@ -11,10 +11,10 @@ namespace CustomSite.Controllers
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private readonly IEntityBaseRepository<Category> _repository;
-        public SampleDataController(IEntityBaseRepository<Category> repository)
+        private readonly IUnitOfWork _unitOfWork;
+        public SampleDataController(IUnitOfWork unitOfWork)
         {
-            _repository = repository;         
+            _unitOfWork = unitOfWork;         
             add();   
         }
         
@@ -27,19 +27,19 @@ namespace CustomSite.Controllers
             {
                 new Product{
                     ProductName = "BMW",
-                    ProductPrice = "100000",
+                    ProductPrice = 1000,
                     ProductDescription = "this is BMW",
                     Manufactory = "EU"
                 },
                 new Product{
                     ProductName = "Mercedes",
-                    ProductPrice = "100000",
+                    ProductPrice = 1000,
                     ProductDescription = "this is Mercedes",
                     Manufactory = "EU"
                 },
             };
-            _repository.Add(c);
-            _repository.SaveChage();
+            _unitOfWork.Categories.Add(c);
+            _unitOfWork.SaveChange();
         }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomSite.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20190309083542_InitalMigration")]
+    [Migration("20190312071223_InitalMigration")]
     partial class InitalMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,8 @@ namespace CustomSite.Migrations
 
                     b.Property<Guid>("CategoryId");
 
+                    b.Property<string>("Image");
+
                     b.Property<string>("Manufactory")
                         .IsRequired();
 
@@ -55,8 +57,7 @@ namespace CustomSite.Migrations
                     b.Property<string>("ProductName")
                         .IsRequired();
 
-                    b.Property<string>("ProductPrice")
-                        .IsRequired();
+                    b.Property<decimal>("ProductPrice");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()

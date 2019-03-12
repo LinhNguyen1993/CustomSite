@@ -16,7 +16,6 @@ namespace CustomSite.Core
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        void DeleteWhere(Expression<Func<T, bool>> predicate);
-        void SaveChage();
+        void DeleteWhere(Expression<Func<T, bool>> predicate);        
     }
 }

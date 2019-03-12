@@ -29,8 +29,9 @@ namespace CustomSite.Migrations
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     ProductName = table.Column<string>(nullable: false),
                     Manufactory = table.Column<string>(nullable: false),
-                    ProductPrice = table.Column<string>(nullable: false),
+                    ProductPrice = table.Column<decimal>(nullable: false),
                     ProductDescription = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true),
                     CategoryId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>

@@ -9,6 +9,6 @@ namespace CustomSite.Entities
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
