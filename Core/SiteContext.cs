@@ -1,9 +1,10 @@
 using CustomSite.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomSite.Core
 {
-    public class SiteContext : DbContext
+    public class SiteContext : IdentityDbContext
     {
         public SiteContext(DbContextOptions options) : base(options)
         {
