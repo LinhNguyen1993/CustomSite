@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   private setUser(token: string) {
-    let user;
+    let user: any;
     try {
       user = this.jwtHelper.decodeToken(token);
     }

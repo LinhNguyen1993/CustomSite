@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 
 export const routers: Routes = [
   { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule', },
+  { path: 'home', loadChildren: './modules/home/home.module#HomeModule', },
   { path: '', pathMatch: 'full', redirectTo: 'auth' }
 ]
 
