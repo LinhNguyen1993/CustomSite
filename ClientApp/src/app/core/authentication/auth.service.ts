@@ -13,20 +13,22 @@ export class AuthService {
   private jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor(private router: Router) {
-    this.setUser(localStorage.getItem(environment.tokenName));
+    this.setUser();
   }
 
   setAuth(token: string) {
     localStorage.setItem(environment.tokenName, token);
-    this.setUser(token);
+    this.setUser();
   }
+
   getToken() {
     return localStorage.getItem(environment.tokenName);
   }
 
-  private setUser(token: string) {
+  setUser() {
     let user: any;
     try {
+      let token = this.getToken();
       user = this.jwtHelper.decodeToken(token);
     }
     catch (ex) {
@@ -34,8 +36,9 @@ export class AuthService {
     }
     this.user.next(user);
   }
+
   isAuthenticated(): boolean {
-    let token = localStorage.getItem(environment.tokenName);
+    let token = this.getToken();
     try {
       return !this.jwtHelper.isTokenExpired(token);
     }

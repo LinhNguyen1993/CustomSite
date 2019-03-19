@@ -30,8 +30,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     let model = new LoginModel(this.email, this.password, this.remember);
-    this.http.post<any>(this.baseUrl + 'api/Account/Login', JSON.stringify(model), this.headers).subscribe(result => {
-      console.log(result);
+    this.http.post<any>(this.baseUrl + 'api/Account/Login', JSON.stringify(model), this.headers).subscribe(result => {    
       this.authService.setAuth(result.token);
       this.router.navigate(["/home"]);
     }, error => {

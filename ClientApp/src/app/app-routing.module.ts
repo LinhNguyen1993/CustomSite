@@ -3,11 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routers: Routes = [
-  { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule', },
-  { path: 'home', loadChildren: './modules/home/home.module#HomeModule', },
-  { path: '', pathMatch: 'full', redirectTo: 'auth' }
+  { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule', canActivate: [AuthGuard] },
+  { path: 'home', loadChildren: './modules/home/home.module#HomeModule', canLoad: [AuthGuard] },
+  { path: '', pathMatch: 'full', redirectTo: 'home' }
 ]
 
 @Injectable()

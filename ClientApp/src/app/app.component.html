@@ -1,18 +1,6 @@
 <body>
-  <div *ngIf="user" class="d-flex" [ngClass]="{'toggled': isExpanded}" id="wrapper">
-    <!-- <app-nav-menu></app-nav-menu> -->
-
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Start Bootstrap </div>
-      <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
-      </div>
-    </div>
+  <div *ngIf="isAuthenticated" class="d-flex" [ngClass]="{'toggled': isExpanded}" id="wrapper">
+    <app-nav-menu></app-nav-menu>
 
     <div id="page-content-wrapper">
 
@@ -21,7 +9,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -42,7 +30,7 @@
               </div>
             </li>
           </ul>
-        </div>
+        </div> -->
       </nav>
 
       <div class="container-fluid">
@@ -51,7 +39,7 @@
     </div>
   </div>
 
-  <div *ngIf="!user" class="container-fluid">
+  <div *ngIf="!isAuthenticated" class="container-fluid">
     <router-outlet></router-outlet>
   </div>
 </body>
