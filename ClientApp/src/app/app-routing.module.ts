@@ -1,3 +1,4 @@
+import { PreventAuthComponentGuard } from './core/guards/prevent-auth-component.guard';
 import { NgModule, Injectable } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
@@ -6,8 +7,8 @@ import { environment } from 'src/environments/environment';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routers: Routes = [
-  { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule', canActivate: [AuthGuard] },
-  { path: 'home', loadChildren: './modules/home/home.module#HomeModule', canLoad: [AuthGuard] },
+  { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule', canActivate: [PreventAuthComponentGuard] },
+  { path: 'home', loadChildren: './modules/home/home.module#HomeModule', canActivate: [AuthGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'home' }
 ]
 
