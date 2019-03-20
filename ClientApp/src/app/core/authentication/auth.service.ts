@@ -25,6 +25,10 @@ export class AuthService {
     return localStorage.getItem(environment.tokenName);
   }
 
+  removeToken() {
+    localStorage.removeItem(environment.tokenName);
+  }
+
   setUser() {
     let user: any;
     try {
@@ -40,9 +44,18 @@ export class AuthService {
   isAuthenticated(): boolean {
     let token = this.getToken();
     try {
-      return !this.jwtHelper.isTokenExpired(token);
+      let isExpired = this.jwtHelper.isTokenExpired(token);
+      if (isExpired) {
+        this.removeToken();
+        this.user.next(null);
+        return false;
+      }
+
+      return true;
     }
     catch (ex) {
+      this.removeToken();
+      this.user.next(null);
       return false;
     }
   }

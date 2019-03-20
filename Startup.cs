@@ -58,6 +58,11 @@ namespace CustomSite
                 options.Password.RequiredUniqueChars = 1;
             });
 
+            services.Configure<DataProtectionTokenProviderOptions>(o =>
+            {
+                o.TokenLifespan = TimeSpan.FromDays(1);
+            });
+
             services.AddSingleton<IEmailSender, EmailService>();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
