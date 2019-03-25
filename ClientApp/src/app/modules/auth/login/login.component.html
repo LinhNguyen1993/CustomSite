@@ -37,13 +37,13 @@
         <li>
           <input type="checkbox" name="Remember" value="" class="remember-me__checkbox" [(ngModel)]="remember">
           <label class="remember-me__text"><span></span>Remember me</label>
-          <a href="#" class="remember-me__forgot-password">Forgot password?</a>
+          <a routerLink="/auth/forgot-password" class="remember-me__forgot-password">Forgot password?</a>
         </li>
       </ul>
       <input type="submit" value="LOGIN" class="login-box__submit-button" [disabled]="loginForm.invalid">
     </form>
 
-    <div class="register">
+    <div class="register">    
       <p> To register new account <span>→</span> <a routerLink="register" class="register__click-here-button" href="#small-dialog1">
           Click Here</a></p>
       <div class="clear"></div>

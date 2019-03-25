@@ -107,6 +107,29 @@ namespace CustomSite.Controllers
             return response;
         }
 
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordModel model)
+        {
+            IActionResult response = BadRequest();
+
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var callbackUrl = HandleCallBackUrl("ResetPassword", "Account", new { userId = user.Id, code = HttpUtility.UrlEncode(code) });
+                    var template = "Reset password " + "<a href='" + callbackUrl + "'>Click here</a>";
+                    await _emailSender.SendEmailAsync(model.Email, "Reset password", template);
+
+                    response = Ok();
+                }
+            }
+
+            return response;
+        }
+
         private string GenerateJSONWebToken(object info)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtIssuerOptions:Key"]));
@@ -119,6 +142,15 @@ namespace CustomSite.Controllers
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private string HandleCallBackUrl(string actionName, string controllerName, object values)
+        {
+            var callbackUrl = Url.Action("ResetPassword", "Account",
+                        values: values,
+                        protocol: Request.Scheme);
+
+            return callbackUrl;
         }
     }
 }

@@ -4,6 +4,7 @@ import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
+import { ForgotPasswordComponent } from './forget-password/forgot-password.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { AuthRoutingModule } from './auth-routing.module';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  declarations: [AuthRoutingModule.components]
+  declarations: [AuthRoutingModule.components, ForgotPasswordComponent]
 })
 export class AuthModule { }
