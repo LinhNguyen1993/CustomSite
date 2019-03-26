@@ -29,4 +29,15 @@ export class ForgotPasswordComponent implements OnInit {
         console.log("complete");
       });
   }
+
+  getProducts(){    
+    this.http.get(this.baseUrl + "api/product/getProducts").subscribe(response => {
+      console.log(response);
+    }, (error => {
+      console.log(error);
+    }),
+      () => {
+        console.log("complete");
+      });
+  }
 }

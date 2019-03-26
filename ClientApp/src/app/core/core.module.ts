@@ -3,30 +3,29 @@ import { AuthService } from './authentication/auth.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './interceptor/interceptor.service';
 
 @NgModule({
   imports: [
-    CommonModule,    
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
+    CommonModule,
     RouterModule
   ],
-  exports: [    
+  exports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NavMenuComponent,    
+    NavMenuComponent,
+    HttpClientModule
   ],
   declarations: [
     NavMenuComponent
   ],
   providers: [
-    AuthService
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
   ]
 })
 export class CoreModule { }

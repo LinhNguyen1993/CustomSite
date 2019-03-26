@@ -11,8 +11,7 @@ import { ForgotPasswordComponent } from './forget-password/forgot-password.compo
     CommonModule,
     AuthRoutingModule,
     FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule    
   ],
   declarations: [AuthRoutingModule.components, ForgotPasswordComponent]
 })
