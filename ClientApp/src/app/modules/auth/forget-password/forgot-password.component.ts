@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, inject, ErrorHandler } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit} from '@angular/core';
 import { getBaseUrl } from 'src/main';
 
 @Component({
@@ -10,8 +9,10 @@ import { getBaseUrl } from 'src/main';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  
   email: string;
   baseUrl: string = getBaseUrl();
+  forgotPasswordModel = new ForgotPasswordModel();
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,8 @@ export class ForgotPasswordComponent implements OnInit {
 
   forgotPassword() {
     console.log(this.email);
-    this.http.post(this.baseUrl + "api/account/forgotPassword", JSON.stringify(this.email)).subscribe(response => {
+    this.forgotPasswordModel.Email = this.email;
+    this.http.post(this.baseUrl + "api/account/forgotPassword", JSON.stringify(this.forgotPasswordModel)).subscribe(response => {
       console.log(response);
     }, (error => {
       console.log(error);
@@ -30,7 +32,7 @@ export class ForgotPasswordComponent implements OnInit {
       });
   }
 
-  getProducts(){    
+  getProducts() {
     this.http.get(this.baseUrl + "api/product/getProducts").subscribe(response => {
       console.log(response);
     }, (error => {
@@ -40,4 +42,8 @@ export class ForgotPasswordComponent implements OnInit {
         console.log("complete");
       });
   }
+}
+
+class ForgotPasswordModel {
+  Email: string
 }

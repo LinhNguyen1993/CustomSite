@@ -1,4 +1,3 @@
-import { FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forget-password/forgot-password.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -25,8 +24,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes),
-    FormsModule
+    RouterModule.forChild(routes)    
   ],
   exports: [RouterModule]
 })

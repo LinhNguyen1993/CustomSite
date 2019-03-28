@@ -45,9 +45,7 @@ namespace CustomSite.Controllers
                 if (result.Succeeded)
                 {
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account",
-                        values: new { userId = user.Id, code = HttpUtility.UrlEncode(code) },
-                        protocol: Request.Scheme);
+                    var callbackUrl = HandleCallBackUrl("ConfirmEmail", "Account", new { userId = user.Id, code = HttpUtility.UrlEncode(code) });
                     var template = "Please confirm your account by " + "<a href='" + callbackUrl + "'>Click here</a>";
                     await _emailSender.SendEmailAsync(model.Email, "Confirm your email", template);
 
@@ -130,6 +128,30 @@ namespace CustomSite.Controllers
             return response;
         }
 
+        [AllowAnonymous]
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ResetPassword(string userId, string code)
+        {
+            IActionResult response = BadRequest();
+
+            if (string.IsNullOrWhiteSpace(userId) && string.IsNullOrWhiteSpace(code))
+            {
+                return response;
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userId}'.");
+            }
+
+            await _userManager.ResetPasswordAsync(user,HttpUtility.UrlDecode(code), "Abc@6789");
+            var request = HttpContext.Request;
+            string baseUrl = request.Scheme + "://" + request.Host.Value;
+            return Redirect(baseUrl);
+        }
+
         private string GenerateJSONWebToken(object info)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtIssuerOptions:Key"]));
@@ -146,7 +168,7 @@ namespace CustomSite.Controllers
 
         private string HandleCallBackUrl(string actionName, string controllerName, object values)
         {
-            var callbackUrl = Url.Action("ResetPassword", "Account",
+            var callbackUrl = Url.Action(actionName, controllerName,
                         values: values,
                         protocol: Request.Scheme);
 

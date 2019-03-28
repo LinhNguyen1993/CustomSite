@@ -1,5 +1,5 @@
 import { CategoriesComponent } from './categories/categories.component';
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 

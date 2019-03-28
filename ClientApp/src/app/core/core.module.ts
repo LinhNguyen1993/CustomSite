@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './interceptor/interceptor.service';
 
 @NgModule({
   imports: [
@@ -17,15 +15,13 @@ import { InterceptorService } from './interceptor/interceptor.service';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NavMenuComponent,
-    HttpClientModule
+    NavMenuComponent    
   ],
   declarations: [
     NavMenuComponent
   ],
   providers: [
-    AuthService,
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+    AuthService    
   ]
 })
 export class CoreModule { }
